@@ -53,6 +53,12 @@ cd video-gallery-generator
 python create_video.py --size fullhd --duration 3 --crossfade 3 --fps 24 --margin 20 --background black --margin_color black
 ```
 
+## To-Do
+
+* Add opening and closing titles with customizable text and duration.
+* Allow custom timing for each image based on the image name.
+* Automatically adjust image duration to match the length of the soundtrack.
+
 
 ## Authors
 
