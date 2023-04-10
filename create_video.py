@@ -10,21 +10,24 @@ import argparse
 # Create the argument parser
 parser = argparse.ArgumentParser(description="Create a video gallery from a folder of images and an optional soundtrack.")
 
-# Add arguments
-parser.add_argument("-s", "--size", choices=["fullhd", "4k", "instastory"], default="fullhd",
-                    help="Choose the video size: fullhd, 4k, or instastory.")
-parser.add_argument("-d", "--duration", type=float, default=3,
-                    help="Set the duration of each image in seconds.")
-parser.add_argument("-c", "--crossfade", type=float, default=3,
-                    help="Set the crossfade duration between images in seconds.")
-parser.add_argument("-f", "--fps", type=int, default=24,
-                    help="Set the frames per second for the video.")
-parser.add_argument("-m", "--margin", type=int, default=20,
-                    help="Set the margin for the images in pixels.")
-parser.add_argument("-b", "--background", default="black",
-                    help="Set the background color for the video.")
-parser.add_argument("--margin_color", default="black",
-                    help="Set the margin color for the images.")
+# Define arguments and their properties
+args_list = [
+    {"short": "-s", "long": "--size", "choices": ["fullhd", "4k", "instastory"], "default": "fullhd", "help": "Choose the video size: fullhd, 4k, or instastory."},
+    {"short": "-d", "long": "--duration", "type": float, "default": 3, "help": "Set the duration of each image in seconds."},
+    {"short": "-c", "long": "--crossfade", "type": float, "default": 3, "help": "Set the crossfade duration between images in seconds."},
+    {"short": "-f", "long": "--fps", "type": int, "default": 24, "help": "Set the frames per second for the video."},
+    {"short": "-m", "long": "--margin", "type": int, "default": 20, "help": "Set the margin for the images in pixels."},
+    {"short": "-b", "long": "--background", "default": "black", "help": "Set the background color for the video."},
+    {"long": "--margin_color", "default": "black", "help": "Set the margin color for the images."},
+]
+
+# Add arguments to the parser
+for arg in args_list:
+    kwargs = {k: v for k, v in arg.items() if k not in ["short", "long"]}
+    if "short" in arg:
+        parser.add_argument(arg["short"], arg["long"], **kwargs)
+    else:
+        parser.add_argument(arg["long"], **kwargs)
 
 # Parse arguments
 args = parser.parse_args()
