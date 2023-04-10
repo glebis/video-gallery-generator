@@ -1,11 +1,10 @@
 import os
 import sys
+import argparse
 from moviepy.editor import *
-
 from pydub import AudioSegment
 from datetime import datetime
 
-import argparse
 
 # Create the argument parser
 parser = argparse.ArgumentParser(description="Create a video gallery from a folder of images and an optional soundtrack.")
