@@ -49,7 +49,9 @@ cd video-gallery-generator
 
 3. Run the script with the desired arguments:
 
-```python create_video.py --size fullhd --duration 3 --crossfade 3 --fps 24 --margin 20 --background black --margin_color black```
+```
+python create_video.py --size fullhd --duration 3 --crossfade 3 --fps 24 --margin 20 --background black --margin_color black
+```
 
 
 ## Authors
