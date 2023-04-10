@@ -5,31 +5,57 @@ from moviepy.editor import *
 from pydub import AudioSegment
 from datetime import datetime
 
+import argparse
+
+# Create the argument parser
+parser = argparse.ArgumentParser(description="Create a video gallery from a folder of images and an optional soundtrack.")
+
+# Add arguments
+parser.add_argument("-s", "--size", choices=["fullhd", "4k", "instastory"], default="fullhd",
+                    help="Choose the video size: fullhd, 4k, or instastory.")
+parser.add_argument("-d", "--duration", type=float, default=3,
+                    help="Set the duration of each image in seconds.")
+parser.add_argument("-c", "--crossfade", type=float, default=3,
+                    help="Set the crossfade duration between images in seconds.")
+parser.add_argument("-f", "--fps", type=int, default=24,
+                    help="Set the frames per second for the video.")
+parser.add_argument("-m", "--margin", type=int, default=20,
+                    help="Set the margin for the images in pixels.")
+parser.add_argument("-b", "--background", default="black",
+                    help="Set the background color for the video.")
+parser.add_argument("--margin_color", default="black",
+                    help="Set the margin color for the images.")
+
+# Parse arguments
+args = parser.parse_args()
+
+# Set the video size based on the "size" parameter
+size_options = {
+    "fullhd": (1920, 1080),
+    "4k": (3840, 2160),
+    "instastory": (1080, 1920),
+}
+
+video_size = size_options[args.size]
+video_size_str = args.size
+
+# Set the duration, crossfade time, fps, and margin
+image_duration = args.duration
+crossfade_duration = args.crossfade
+fps = args.fps
+margin = args.margin
+
+# Set the background and margin color
+background_color = args.background
+margin_color = args.margin_color
+
+
 # Set the directories
 images_dir = "images"
 sound_dir = "sound"
 output_dir = "output"
 
-# Set the duration, crossfade time, fps, and margin
-image_duration = 3
-crossfade_duration = 3
-fps = 24
-margin = 20
 
-# Set the video size based on the "size" parameter
-if len(sys.argv) > 1:
-    if sys.argv[1].lower() == "fullhd":
-        video_size = (1920, 1080)
-        video_size_str = "fullhd"
-    elif sys.argv[1].lower() == "4k":
-        video_size = (3840, 2160)
-        video_size_str = "4k"
-    else:
-        print("Invalid size parameter. Use 'fullhd' or '4k'.")
-        exit()
-else:
-    video_size = (1920, 1080)
-    video_size_str = "fullhd"
 
 
 # Create directories if they don't exist
@@ -63,7 +89,8 @@ def resize_and_center(img_clip, video_size, margin):
     pos_x = (video_width - new_width) // 2
     pos_y = (video_height - new_height) // 2
 
-    return resized_clip.set_position((pos_x, pos_y))
+    return resized_clip.set_position((pos_x, pos_y)).margin(margin, color=(0, 0, 0))
+
 
 image_clips = [
     resize_and_center(ImageClip(os.path.join(images_dir, f)).set_duration(image_duration), video_size, margin)
