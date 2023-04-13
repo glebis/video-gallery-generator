@@ -1,6 +1,9 @@
 
 .DS_Store
 images
-sound
+fonts
 output
+sound
 *.m4a
+*.mp4
+titles.txt
