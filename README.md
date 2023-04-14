@@ -10,6 +10,7 @@ A command-line Python script that creates a video gallery from a folder of image
 * Allows setting image margin and margin color.
 * Background and margin colors can be customized.
 * Can be used as a command line script with customizable parameters.
+* Supports the addition of titles to each image in the gallery. The titles can be specified in a text file, with each line in the format "filename.jpg:Title text". The titles can be animated with a fade-in and fade-out effect, and the font, size, weight, and color can be customized.
 
 ## Usage
 
@@ -18,13 +19,21 @@ A command-line Python script that creates a video gallery from a folder of image
 
 ## Arguments
 
-* `-s, --size`: Choose the video size. Options: `fullhd`, `4k`, or `instastory`. Default: `fullhd`.
-* `-d, --duration`: Set the duration of each image in seconds. Default: `3`.
-* `-c, --crossfade`: Set the crossfade duration between images in seconds. Default: `3`.
-* `-f, --fps`: Set the frames per second for the video. Default: `24`.
-* `-m, --margin`: Set the margin for the images in pixels. Default: `20`.
-* `-b, --background`: Set the background color for the video. Default: `black`.
-* `--margin_color`: Set the margin color for the images. Default: `black`.
+
+- `-s, --size`: Choose the video size. Options: `fullhd`, `4k`, or `instastory`. Default: `fullhd`.
+- `-d, --duration`: Set the duration of each image in seconds. Default: `3`.
+- `-c, --crossfade`: Set the crossfade duration between images in seconds. Default: `3`.
+- `-f, --fps`: Set the frames per second for the video. Default: `24`.
+- `-m, --margin`: Set the margin for the images in pixels. Default: `20`.
+- `-b, --background`: Set the background color for the video. Default: `black`.
+- `--margin_color`: Set the margin color for the images. Default: `(255,0,255)`.
+- `-t, --title_duration`: Set the duration of the title in seconds. Default: `3`.
+- `-tf, --title_font`: Set the font for the title. Default: `Arial`.
+- `-ts, --title_font_size`: Set the font size for the title. Default: `24`.
+- `-tw, --title_font_weight`: Set the font weight for the title. Options: `normal`, `bold`. Default: `normal`.
+- `-tt, --title_file`: Set the path to a file containing the title text. Default: `titles.txt`.
+- `-tc, --title_color`: Set the color for the subtitles. Default: `white`.
+- `-ff, --title_font_file`: Set the path to a TTF file for the title font. Default: `None`.
 
 ## Requirements
 
