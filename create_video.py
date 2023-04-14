@@ -20,10 +20,10 @@ args_list = [
     {"short": "-f", "long": "--fps", "type": int, "default": 24, "help": "Set the frames per second for the video."},
     {"short": "-m", "long": "--margin", "type": int, "default": 20, "help": "Set the margin for the images in pixels."},
     {"short": "-b", "long": "--background", "default": "black", "help": "Set the background color for the video."},
-    {"long": "--margin_color", "type": tuple, "default": (255,0,255), "help": "Set the margin color for the images."},
+    {"short": "-mc", "long": "--margin_color", "type": tuple, "default": (0,0,0), "help": "Set the margin color for the images."},
     {"short": "-t", "long": "--title_duration", "type": float, "default": 3, "help": "Set the duration of the title in seconds."},
     {"short": "-tf", "long": "--title_font", "default": "Arial", "help": "Set the font for the title."},
-    {"short": "-ts", "long": "--title_font_size", "type": int, "default": 24, "help": "Set the font size for the title."},
+    {"short": "-ts", "long": "--title_font_size", "type": int, "default": 36, "help": "Set the font size for the title."},
     {"short": "-tw", "long": "--title_font_weight", "default": "normal", "choices": ["normal", "bold"], "help": "Set the font weight for the title."},
     {"short": "-tt", "long": "--title_file", "default": "titles.txt", "help": "Set the path to a file containing the title text."},
     {"short": "-tc", "long": "--title_color", "default": "white", "type": str,  "help": "Set the color for the subtitles."},
@@ -67,7 +67,6 @@ margin = args.margin
 # Set the background and margin color
 background_color = args.background
 margin_color = args.margin_color
-margin_color = (0,0,0)
 
 
 # Set the directories
@@ -120,7 +119,7 @@ def create_title_clip(title_text, font=title_font, font_size=48, font_weight=tit
     #print(text_clip.w)
     # text_clip = text_clip.set_position(("right", "bottom"))
 
-    text_clip = text_clip.set_start(max(0, text_clip.start - 6))
+    text_clip = text_clip.set_start(max(0, text_clip.start - 16))
 
 
     return text_clip
@@ -142,15 +141,15 @@ def resize_and_center(img_clip, video_size, margin, title_text=""):
 
     pos_x = (video_width - new_width) // 2
     pos_y = (new_height - (margin*3)) 
-    print(video_height)
-    print(new_height)
+    # print(video_height)
+    # print(new_height)
 
     if title_text:
         title_clip = create_title_clip(title_text, args.title_font, args.title_font_size, args.title_font_weight, args.title_duration, video_size, font_file=args.title_font_file)
         # title_clip = title_clip.set_pos((pos_x + margin, pos_y + margin))
         title_clip = title_clip.set_position(("center", pos_y))
 
-        fade_in_duration = 2
+        fade_in_duration = 0
         fade_out_duration = 2
         title_clip = title_clip.fadein(fade_in_duration).fadeout(fade_out_duration)
 
